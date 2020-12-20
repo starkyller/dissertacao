@@ -1,0 +1,16 @@
+[
+    {
+      "model": "users.ContactType",
+      "pk": 1,
+      "fields": {
+        "name": "Phone Number"
+      }
+    },
+    {
+        "model": "users.ContactType",
+        "pk": 2,
+        "fields": {
+            "name": "WeChat"
+        }
+    }
+  ]
