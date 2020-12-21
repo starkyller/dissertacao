@@ -70,7 +70,7 @@ class User(AbstractUser):
 
     @property
     def contacts(self):
-        return self.contacts
+        return self.contact
 
     class Meta:
         verbose_name = _("User")
@@ -107,7 +107,7 @@ class Patient(User):
 
     @property
     def guardians(self):
-        return self.guardians
+        return self.guardian
 
     class Meta:
         proxy = True
