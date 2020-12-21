@@ -1,38 +1,54 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as djUserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext, gettext_lazy as _
 
-from .models import Contact, ContactType
+from .models import Contact, ContactType, Guardian
 
 User = get_user_model()
-
 
 
 class ContactTypeAdmin(admin.ModelAdmin):
     list_display = ["name"]
 
 
-
 class InLineContact(admin.TabularInline):
     model = Contact
     extra = 1
 
-#@admin.register(User)
-class UserAdmin(UserAdmin):
-    inlines = [InLineContact]
+
+class InLineGuardian(admin.TabularInline):
+    model = Guardian
+    extra = 1
+
+
+class UserAdmin(djUserAdmin):
+    inlines = [InLineContact, InLineGuardian]
 
     add_form = UserCreationForm
     form = UserChangeForm
     model = User
-    #list_display = ['pk', 'email', 'username', 'first_name', 'last_name']
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        ("Stuff", {'fields': ('email', 'first_name', 'type',)}),
+
+    fks = (
+        (None, {'fields': ('username', 'password')}),
+        (_('Personal info'), {
+            'fields': ('first_name', 'last_name', 'type'),
+        }),
+        (_('Permissions'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
     )
-    fieldsets = UserAdmin.fieldsets
-    
+
+    add_fieldsets = fks
+    fieldsets = fks
+
     list_display = ["username", "alias", "is_superuser"]
     search_fields = ["username", "alias"]
+
+    class Media:
+        js = ('users/admin/js/toggle_guardians.js',)
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(ContactType, ContactTypeAdmin)

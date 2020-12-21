@@ -5,7 +5,6 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
 
 
-
 class ContactType(models.Model):
     name = models.CharField(_('Contact Type Name'), max_length=50, unique=True, help_text=_(
         "Add a name for a type of contact, e.i, phone number, WeChat"),)
@@ -33,6 +32,19 @@ class Contact(models.Model):
         verbose_name_plural = _("Contacts")
 
 
+class Guardian(models.Model):
+    target_user = models.OneToOneField('User', on_delete=models.CASCADE)
+    guardians = models.ManyToManyField(
+        'User', blank=True, related_name='user_guardians')
+
+    def __str__(self):
+        return _("Guardians of: %s") % self.target_user.username
+
+    class Meta:
+        verbose_name = _("Guardian")
+        verbose_name_plural = _("Guardians")
+
+
 class User(AbstractUser):
     '''
         My custom user model
@@ -55,11 +67,11 @@ class User(AbstractUser):
         if not self.id:
             self.type = self.base_type
         return super().save(*args, **kwargs)
-    
+
     @property
     def contacts(self):
         return self.contacts
-    
+
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
@@ -70,12 +82,11 @@ class PatientManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.PATIENT)
 
+
 class MedicalStaffManager(models.Manager):
 
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(type=User.Types.MEDICALSTAFF)
-
-
 
 
 class MedicalStaff(User):
@@ -96,7 +107,7 @@ class Patient(User):
 
     @property
     def guardians(self):
-        return NotImplementedError
+        return self.guardians
 
     class Meta:
         proxy = True
