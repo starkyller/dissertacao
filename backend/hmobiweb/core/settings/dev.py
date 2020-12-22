@@ -9,7 +9,7 @@ SECRET_KEY = '^^(oi_x-*%o-w4d!gbb=@6741#&jft&p-)b$zqcc2b5+6x9r9k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DEV_APPS = [
     'django_extensions',
