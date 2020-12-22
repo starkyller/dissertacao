@@ -17,7 +17,10 @@ DJANGO_APPS = [
 
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken'
+]
 
 LOCAL_APPS = [
     'apps.users',
@@ -102,3 +105,8 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'users.User'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}

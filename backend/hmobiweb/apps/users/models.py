@@ -33,9 +33,9 @@ class Contact(models.Model):
 
 
 class Guardian(models.Model):
-    target_user = models.OneToOneField('User', on_delete=models.CASCADE)
-    guardians = models.ManyToManyField(
-        'User', blank=True, related_name='user_guardians')
+    user_target = models.OneToOneField('User', on_delete=models.CASCADE)
+    user_guardians = models.ManyToManyField(
+        'User', blank=True, related_name='+')
 
     def __str__(self):
         return _("Guardians of: %s") % self.target_user.username
@@ -70,7 +70,7 @@ class User(AbstractUser):
 
     @property
     def contacts(self):
-        return self.contact
+        return self.contacts
 
     class Meta:
         verbose_name = _("User")
