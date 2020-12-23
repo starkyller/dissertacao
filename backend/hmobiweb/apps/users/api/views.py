@@ -1,15 +1,15 @@
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-
-from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework import generics, status
 
 from .serializers import PatientSerializer
 
 from ..models import Patient
 
 class CustomAuthToken(ObtainAuthToken):
-
+    # override of the ObtainAuthToken view to include more than the token
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                        context={'request': request})
@@ -23,6 +23,11 @@ class CustomAuthToken(ObtainAuthToken):
 
         })
 
+
+class LogoutAPIView(APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
 
 class PatientDetailAPIView(generics.RetrieveAPIView):
     serializer_class = PatientSerializer

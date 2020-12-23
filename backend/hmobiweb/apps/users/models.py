@@ -38,6 +38,7 @@ class Guardian(models.Model):
         'User', blank=True, related_name='+')
 
     def __str__(self):
+         # Translators: e.i Guardians of: john123
         return _("Guardians of: %s") % self.target_user.username
 
     class Meta:
