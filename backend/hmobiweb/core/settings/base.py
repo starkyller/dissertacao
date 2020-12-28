@@ -39,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -94,6 +95,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+gettext = lambda s: s
+
+LANGUAGES = (
+    ## Customize this
+    ('pt', gettext('pt')),
+    ('en', gettext('en')),
+    ('zh', gettext('zh')),
+)
 
 
 # Static files (CSS, JavaScript, Images)
