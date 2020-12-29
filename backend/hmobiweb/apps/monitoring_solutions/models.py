@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 
 class Slugable(models.Model):
@@ -17,10 +18,12 @@ class MonitoringCategory(Slugable):
 
     def __str__(self):
         return self.designation
+    
 
     class Meta:
         verbose_name = _("Monitoring Category")
         verbose_name_plural = _("Monitoring Categories")
+        
 
 
 class SolutionObjective(Slugable):

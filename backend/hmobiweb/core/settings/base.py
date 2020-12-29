@@ -19,14 +19,12 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
 ]
 
 LOCAL_APPS = [
     'apps.users',
     'apps.monitoring_solutions.apps.MonitoringSolutionsConfig',
-    #"spybook.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
 ]
 
 
