@@ -1,0 +1,42 @@
+[
+    {
+        "model": "monitoring_solutions.MonitoringCategory",
+        "pk": 1,
+        "fields": {
+            "designation": "Health",
+            "slug": "124ea599-10a2-49a1-be2f-c1fcb04d003e"
+        }
+    },
+    {
+        "model": "monitoring_solutions.MonitoringCategory",
+        "pk": 2,
+        "fields": {
+            "designation": "Nutrition",
+            "slug": "224ea599-10a2-49a1-be2f-c1fcb04d003e"
+        }
+    },
+    {
+        "model": "monitoring_solutions.MonitoringCategory",
+        "pk": 3,
+        "fields": {
+            "designation": "Safety",
+            "slug": "324ea599-10a2-49a1-be2f-c1fcb04d003e"
+        }
+    },
+    {
+        "model": "monitoring_solutions.MonitoringCategory",
+        "pk": 4,
+        "fields": {
+            "designation": "Social Network",
+            "slug": "424ea599-10a2-49a1-be2f-c1fcb04d003e"
+        }
+    },
+    {
+        "model": "monitoring_solutions.MonitoringCategory",
+        "pk": 5,
+        "fields": {
+            "designation": "Localization and Navigation",
+            "slug": "524ea599-10a2-49a1-be2f-c1fcb04d003e"
+        }
+    }
+]

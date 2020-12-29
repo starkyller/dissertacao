@@ -24,6 +24,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'apps.users',
+    'apps.monitoring_solutions.apps.MonitoringSolutionsConfig',
     #"spybook.users.apps.UsersConfig",
     # Your stuff: custom apps go here
 ]
@@ -99,10 +100,9 @@ USE_TZ = True
 gettext = lambda s: s
 
 LANGUAGES = (
-    ## Customize this
     ('pt', gettext('pt')),
     ('en', gettext('en')),
-    ('zh', gettext('zh')),
+    ('zh', gettext('zh_CN')), # in order to work you need the locales installed in the system
 )
 
 

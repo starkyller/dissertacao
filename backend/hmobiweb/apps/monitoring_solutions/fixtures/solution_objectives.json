@@ -1,0 +1,18 @@
+[
+    {
+        "model": "monitoring_solutions.SolutionObjective",
+        "pk": 1,
+        "fields": {
+            "designation": "Fall Detection",
+            "slug": "124ea599-01a2-49a1-be2f-c1fcb04d003e"
+        }
+    },
+    {
+        "model": "monitoring_solutions.SolutionObjective",
+        "pk": 2,
+        "fields": {
+            "designation": "Sleep Monitoring",
+            "slug": "224ea599-02a2-49a1-be2f-c1fcb04d003e"
+        }
+    }
+]
