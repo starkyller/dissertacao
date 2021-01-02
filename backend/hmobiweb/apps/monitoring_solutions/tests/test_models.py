@@ -50,6 +50,7 @@ class SolutionTestCase(TestCase):
         self._solutionObj = SolutionObjective.objects.first()  # Fall Detection
         self._name = "XPTO FALL"
         self._description = "The best description ever written"
+        
         try:
             solution1 = Solution(
                 name=self._name,

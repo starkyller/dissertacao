@@ -19,12 +19,11 @@ from django.conf.urls.i18n import i18n_patterns
 
 
 
-
-
 urlpatterns = [
 
     # REST FRAMEWORK
     path('api/auth/', include('apps.users.api.urls', namespace='users_api')),
+    path('api/solutions/', include('apps.monitoring_solutions.api.urls', namespace='monitoring_solutions_api')),
 
 ]
 
