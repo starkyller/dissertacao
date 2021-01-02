@@ -45,7 +45,7 @@ class Solution(Slugable):
         "The final objective of the solution in question"),)
     name = models.CharField(_('Name'), max_length=80,
                             unique=True, help_text=_("E.i, Fall Detection"),)
-    description = models.CharField(_('Description'), max_length=350, blank=True, help_text=_(
+    description = models.TextField(_('Description'), max_length=350, blank=True, help_text=_(
         "Optional: Provide a description for your solution"),)
 
     def __str__(self):
