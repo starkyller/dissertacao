@@ -23,7 +23,7 @@ urlpatterns = [
 
     # REST FRAMEWORK
     path('api/auth/', include('apps.users.api.urls', namespace='users_api')),
-    path('api/solutions/', include('apps.monitoring_solutions.api.urls', namespace='monitoring_solutions_api')),
+    path('api/ms/', include('apps.monitoring_solutions.api.urls', namespace='monitoring_solutions_api')),
 
 ]
 

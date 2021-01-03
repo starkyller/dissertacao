@@ -4,13 +4,17 @@ from rest_framework.permissions import IsAuthenticated
 
 from ..models import (
     MonitoringCategory,
-    SolutionObjective
-) 
+    SolutionObjective,
+    Solution,
+)
 
 from .serializers import (
     MonitoringCategorySerializer,
-    SolutionObjectiveSerializer
-) 
+    SolutionObjectiveSerializer,
+    SolutionSerializer,
+    SolutionDetailSerializer,
+)
+
 
 class MonitoringCategoryListAPIView(generics.ListAPIView):
     """
@@ -25,6 +29,20 @@ class MonitoringCategoryListAPIView(generics.ListAPIView):
     queryset = MonitoringCategory.objects.all()
     serializer_class = MonitoringCategorySerializer
 
+class MonitoringCategoryDetailAPIView(generics.RetrieveAPIView):
+    """
+    get:
+    Return an existing monitoring category.
+
+    """
+
+    # authentication_classes = [TokenAuthentication,]
+    # permission_classes = [IsAuthenticated,]
+
+    queryset = MonitoringCategory.objects.all()
+    serializer_class = MonitoringCategorySerializer
+
+
 class SolutionObjectiveListAPIView(generics.ListAPIView):
     """
     get:
@@ -34,14 +52,47 @@ class SolutionObjectiveListAPIView(generics.ListAPIView):
 
     # authentication_classes = [TokenAuthentication,]
     # permission_classes = [IsAuthenticated,]
-
+    lookup_field = 'slug'
     queryset = SolutionObjective.objects.all()
     serializer_class = SolutionObjectiveSerializer
 
-# class EscolaDetailAPIView(generics.ListAPIView):
-#     serializer_class = NucleoSerializer
-#     lookup_field = 'slug'
 
-#     def get_queryset(self):
-#        filter = self.kwargs['slug']
-#        return Nucleo.objects.filter(escola__slug__iexact = filter)
+class SolutionObjectiveDetailAPIView(generics.RetrieveAPIView):
+    """
+    get:
+    Return a existing detailed solution objective.
+
+    """
+
+    # authentication_classes = [TokenAuthentication,]
+    # permission_classes = [IsAuthenticated,]
+    lookup_field = 'slug'
+    queryset = SolutionObjective.objects.all()
+    serializer_class = SolutionObjectiveSerializer
+
+
+class SolutionListAPIView(generics.ListAPIView):
+    """
+    get:
+    Return a list of all the existing solutions.
+
+    """
+
+    # authentication_classes = [TokenAuthentication,]
+    # permission_classes = [IsAuthenticated,]
+
+    queryset = Solution.objects.all()
+    serializer_class = SolutionSerializer
+
+class SolutionDetailAPIView(generics.RetrieveAPIView):
+    """
+    get:
+    Return a detailed solution.
+
+    """
+
+    # authentication_classes = [TokenAuthentication,]
+    # permission_classes = [IsAuthenticated,]
+    lookup_field = 'slug'
+    queryset = Solution.objects.all()
+    serializer_class = SolutionDetailSerializer
