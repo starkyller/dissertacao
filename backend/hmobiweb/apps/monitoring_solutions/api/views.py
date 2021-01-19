@@ -38,7 +38,7 @@ class MonitoringCategoryDetailAPIView(generics.RetrieveAPIView):
 
     # authentication_classes = [TokenAuthentication,]
     # permission_classes = [IsAuthenticated,]
-
+    lookup_field = 'slug'
     queryset = MonitoringCategory.objects.all()
     serializer_class = MonitoringCategorySerializer
 
