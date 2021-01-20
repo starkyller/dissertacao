@@ -130,6 +130,7 @@ class _AuthCardState extends State<AuthCard> {
                     if (value.isEmpty) {
                       return 'Invalid Username!';
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     _authData['username'] = value;
@@ -143,6 +144,7 @@ class _AuthCardState extends State<AuthCard> {
                     if (value.isEmpty || value.length < 5) {
                       return 'Password is too short!';
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     _authData['password'] = value;

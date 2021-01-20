@@ -18,6 +18,7 @@ class Auth with ChangeNotifier {
   UserTypes _userType;
 
   String _baseURL = apiDomain + "auth/";
+
   Map<String, String> _headers = {
     'Content-Type': 'application/json; charset=UTF-8',
   };
@@ -104,6 +105,8 @@ class Auth with ChangeNotifier {
     _token = userAuthData['token'];
     _userAlias = userAuthData['userAlias'];
     _userType = UserTypes.values[userAuthData['userTypeIndex']];
+
+    _headers.putIfAbsent('Authorization', () => "Token $_token");
 
     notifyListeners();
 

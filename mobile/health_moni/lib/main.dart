@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:health_moni/models/monitoring_solutions/models.dart';
+import 'package:health_moni/providers/monitoring_solutions/solution.dart';
 import 'package:provider/provider.dart';
+
+import 'package:health_moni/providers/monitoring_solutions/monitoring_category.dart';
+import 'package:health_moni/providers/monitoring_solutions/solution_objective.dart';
 
 import 'package:health_moni/providers/auth.dart';
 
@@ -25,14 +30,44 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (ctx) => Auth(),
-        )
+        ),
+        ChangeNotifierProxyProvider<Auth, MonitoringCategories>(
+          create: (ctx) => MonitoringCategories(
+            null,
+          ),
+          update: (ctx, auth, previousOrdersObject) => MonitoringCategories(
+            auth.headers,
+          ),
+        ),
+        ChangeNotifierProxyProvider<Auth, SolutionObjectives>(
+          create: (ctx) => SolutionObjectives(
+            null,
+          ),
+          update: (ctx, auth, previousOrdersObject) => SolutionObjectives(
+            auth.headers,
+          ),
+        ),
+        ChangeNotifierProxyProvider3<Auth, SolutionObjectives,
+            MonitoringCategories, Solutions>(
+          create: (ctx) => Solutions(
+            null,
+            null,
+            null,
+          ),
+          update: (ctx, auth, soliObjs, moniCats, previousOrdersObject) =>
+              Solutions(
+            auth.headers,
+            soliObjs,
+            moniCats,
+          ),
+        ),
       ],
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           title: 'Health Moni',
           theme: ThemeData(
-            primarySwatch: Colors.purple,
-            accentColor: Colors.deepOrange,
+            primarySwatch: Colors.teal,
+            accentColor: Colors.greenAccent,
           ),
           home: auth.isAuth
               ? HomeScreen()
