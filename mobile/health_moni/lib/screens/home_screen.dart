@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // no init state o provider so funcina com o listen:false, mas como nao
     // queremos isso aqui temos de arranajr outra solucao
     // Provider.of<MonitoringCategories>(context, listen: false).loadItems();
+
     Provider.of<Solutions>(context, listen: false)
         .getItem("cd9f8981-1005-4e7c-8a2e-eb38278829f0");
 

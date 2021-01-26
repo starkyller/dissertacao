@@ -114,7 +114,7 @@ class _AuthCardState extends State<AuthCard> {
       ),
       elevation: 8.0,
       child: Container(
-        height: 260,
+        height: 330,
         constraints: BoxConstraints(minHeight: 260),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
@@ -123,6 +123,7 @@ class _AuthCardState extends State<AuthCard> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                Image.asset("assets/images/logo.png"),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Username'),
                   keyboardType: TextInputType.text,

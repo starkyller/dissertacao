@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:health_moni/models/monitoring_solutions/models.dart';
 import 'package:health_moni/providers/monitoring_solutions/solution.dart';
+import 'package:health_moni/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:health_moni/providers/monitoring_solutions/monitoring_category.dart';
@@ -12,6 +14,14 @@ import 'package:health_moni/screens/auth_screen.dart';
 import 'package:health_moni/screens/home_screen.dart';
 
 void main() {
+  // permitir apenas orientacao vertical
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   runApp(MyApp());
 }
 
@@ -76,7 +86,7 @@ class MyApp extends StatelessWidget {
                   builder: (ctx, authResultSnapshot) =>
                       authResultSnapshot.connectionState ==
                               ConnectionState.waiting
-                          ? HomeScreen()
+                          ? SplashScreen()
                           : AuthScreen(),
                 ),
           // home: AuthScreen(),
