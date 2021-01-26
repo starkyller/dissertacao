@@ -113,7 +113,7 @@ class Auth with ChangeNotifier {
     return true;
   }
 
-  Future<void> logout() async {
+  void logout() async {
     final url = _baseURL + "logout/";
 
     try {
