@@ -39,7 +39,7 @@ class Guardian(models.Model):
 
     def __str__(self):
          # Translators: e.i Guardians of: john123
-        return _("Guardians of: %s") % self.target_user.username
+        return _("Guardians of: %s") % self.user_target.username
 
     class Meta:
         verbose_name = _("Guardian")
@@ -61,8 +61,6 @@ class User(AbstractUser):
 
     alias = models.UUIDField(
         default=uuid.uuid4, editable=False, db_index=True,)
-    #contacts = models.ForeignKey('ContactType', on_delete=models.CASCADE,)
-    #guardians = models.ManyToManyField('self')
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -108,7 +106,21 @@ class Patient(User):
 
     @property
     def guardians(self):
-        return self.guardian
+        """returns the user guardians"""
+        return self.guardian.user_guardians.all()
+
+    @property
+    def guardian_of(self):
+        """returns the the patients that the patient is guardian of"""
+        qs = Guardian.objects.filter(user_guardians__in=[self.id])
+        qs_list = list(qs)
+        objs = []
+
+        for x in qs_list:
+            objs.append(x.user_target.id)
+        
+
+        return User.objects.filter(pk__in=objs)
 
     class Meta:
         proxy = True

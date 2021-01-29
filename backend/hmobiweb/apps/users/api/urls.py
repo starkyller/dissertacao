@@ -12,5 +12,5 @@ app_name='users'
 urlpatterns = [
     path("login/", CustomAuthToken.as_view(), name="login"),
     path("logout/", LogoutAPIView.as_view(), name="logout" ),
-    path("user-info/<uuid:alias>", PatientDetailAPIView.as_view(), name="user-info"),
+    path("user-info/<slug:alias>/", PatientDetailAPIView.as_view(), name="user-info"),
 ]

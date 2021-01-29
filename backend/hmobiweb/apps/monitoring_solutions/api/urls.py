@@ -25,6 +25,6 @@ urlpatterns = [
          SolutionObjectiveDetailAPIView.as_view(), name="solution-obj-detail-api"),
 
     path("solution/", SolutionListAPIView.as_view(), name="solution-list-api"),
-    path("solution/<slug:slug>/", SolutionDetailAPIView.as_view(), name="solution-list-api"),
+    path("solution/<slug:slug>/", SolutionDetailAPIView.as_view(), name="solution-detail-api"),
 
 ]
