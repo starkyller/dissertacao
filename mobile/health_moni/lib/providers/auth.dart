@@ -7,15 +7,14 @@ import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:health_moni/models/users/models.dart';
 import 'package:health_moni/exceptions/http_exception.dart';
 import 'package:health_moni/app-config.dart' show apiDomain;
 
 enum UserTypes { PATIENT, MEDICALSTAFF }
 
 class Auth with ChangeNotifier {
-  String _token;
-  String _userAlias;
-  UserTypes _userType;
+  User _user;
 
   String _baseURL = apiDomain + "auth/";
 
@@ -24,21 +23,11 @@ class Auth with ChangeNotifier {
   };
 
   bool get isAuth {
-    return token != null;
+    return _user != null;
   }
 
-  String get token {
-    if (_token != null) return _token;
-
-    return null;
-  }
-
-  String get userAlias {
-    return _userAlias;
-  }
-
-  UserTypes get userType {
-    return _userType;
+  User get user {
+    return _user;
   }
 
   Map<String, String> get headers {
@@ -50,7 +39,7 @@ class Auth with ChangeNotifier {
 
     Map<String, dynamic> userInfo = {
       "username": username,
-      "password": password,
+      "password": password
     };
 
     try {
@@ -69,26 +58,17 @@ class Auth with ChangeNotifier {
       if (response.statusCode >= 400)
         throw HttpException(responseData.toString());
 
-      _token = responseData['token'];
-      _userAlias = responseData['alias'];
+      _user = User.fromJson(responseData);
+      _user.username = username;
 
-      if (responseData['type'] == "PATIENT") {
-        _userType = UserTypes.PATIENT;
-      } else {
-        _userType = UserTypes.MEDICALSTAFF;
-      }
-
-      _headers.putIfAbsent('Authorization', () => "Token $_token");
+      _headers.putIfAbsent('Authorization', () => "Token ${_user.token}");
 
       notifyListeners();
 
       final prefs = await SharedPreferences.getInstance();
-      final userData = json.encode({
-        'token': _token,
-        'userAlias': _userAlias,
-        'userTypeIndex': _userType.index,
-      });
-      prefs.setString('auth_data', userData);
+
+      final userData = json.encode(_user);
+      prefs.setString('user', userData);
     } catch (e) {
       throw e;
     }
@@ -97,16 +77,12 @@ class Auth with ChangeNotifier {
   Future<bool> tryAutoLogin() async {
     final prefs = await SharedPreferences.getInstance();
 
-    if (!prefs.containsKey('auth_data')) return false;
+    if (!prefs.containsKey('user')) return false;
 
-    final userAuthData =
-        json.decode(prefs.get('auth_data')) as Map<String, Object>;
+    final userJson = json.decode(prefs.get('user')) as Map<String, Object>;
+    _user = User.fromJson(userJson);
 
-    _token = userAuthData['token'];
-    _userAlias = userAuthData['userAlias'];
-    _userType = UserTypes.values[userAuthData['userTypeIndex']];
-
-    _headers.putIfAbsent('Authorization', () => "Token $_token");
+    _headers.putIfAbsent('Authorization', () => "Token ${_user.token}");
 
     notifyListeners();
 
@@ -131,13 +107,13 @@ class Auth with ChangeNotifier {
     }
 
     _headers.remove("Authorization");
-    _token = null;
-    _userAlias = null;
-    _userType = null;
+    _user = null;
 
     notifyListeners();
 
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove('auth_data');
+    prefs.remove('user');
   }
+
+  //
 }
