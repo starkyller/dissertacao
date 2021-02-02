@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:health_moni/models/monitoring_solutions/models.dart';
 import 'package:health_moni/providers/monitoring_solutions/solution.dart';
+import 'package:health_moni/providers/users/patient.dart';
 import 'package:health_moni/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -36,42 +37,52 @@ class MyApp extends StatelessWidget {
     // probabilidades de bugs, por outro lado se for para reutilizar um objeto
     // é melhor a abordagem presente no products_grid.dart
     // o multiProvider permite inserir multiplos prividers de uma vez
+    var _providersList = [
+      ChangeNotifierProvider(
+        create: (ctx) => Auth(),
+      ),
+      ChangeNotifierProxyProvider<Auth, Patients>(
+        create: (ctx) => Patients(
+          null,
+        ),
+        update: (ctx, auth, previousOrdersObject) => Patients(
+          auth,
+        ),
+      ),
+      ChangeNotifierProxyProvider<Auth, MonitoringCategories>(
+        create: (ctx) => MonitoringCategories(
+          null,
+        ),
+        update: (ctx, auth, previousOrdersObject) => MonitoringCategories(
+          auth.headers,
+        ),
+      ),
+      ChangeNotifierProxyProvider<Auth, SolutionObjectives>(
+        create: (ctx) => SolutionObjectives(
+          null,
+        ),
+        update: (ctx, auth, previousOrdersObject) => SolutionObjectives(
+          auth.headers,
+        ),
+      ),
+      ChangeNotifierProxyProvider3<Auth, SolutionObjectives,
+          MonitoringCategories, Solutions>(
+        create: (ctx) => Solutions(
+          null,
+          null,
+          null,
+        ),
+        update: (ctx, auth, soliObjs, moniCats, previousOrdersObject) =>
+            Solutions(
+          auth.headers,
+          soliObjs,
+          moniCats,
+        ),
+      ),
+    ];
+
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (ctx) => Auth(),
-        ),
-        ChangeNotifierProxyProvider<Auth, MonitoringCategories>(
-          create: (ctx) => MonitoringCategories(
-            null,
-          ),
-          update: (ctx, auth, previousOrdersObject) => MonitoringCategories(
-            auth.headers,
-          ),
-        ),
-        ChangeNotifierProxyProvider<Auth, SolutionObjectives>(
-          create: (ctx) => SolutionObjectives(
-            null,
-          ),
-          update: (ctx, auth, previousOrdersObject) => SolutionObjectives(
-            auth.headers,
-          ),
-        ),
-        ChangeNotifierProxyProvider3<Auth, SolutionObjectives,
-            MonitoringCategories, Solutions>(
-          create: (ctx) => Solutions(
-            null,
-            null,
-            null,
-          ),
-          update: (ctx, auth, soliObjs, moniCats, previousOrdersObject) =>
-              Solutions(
-            auth.headers,
-            soliObjs,
-            moniCats,
-          ),
-        ),
-      ],
+      providers: _providersList,
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           title: 'Health Moni',
@@ -102,4 +113,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+  //
 }

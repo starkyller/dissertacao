@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:health_moni/models/monitoring_solutions/models.dart';
-import 'package:health_moni/providers/monitoring_solutions/solution.dart';
-
-import 'package:health_moni/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
+import 'package:health_moni/models/monitoring_solutions/models.dart';
+import 'package:health_moni/providers/monitoring_solutions/solution.dart';
+import 'package:health_moni/providers/users/patient.dart';
 import 'package:health_moni/providers/monitoring_solutions/monitoring_category.dart';
+
+import 'package:health_moni/widgets/app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -23,8 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // queremos isso aqui temos de arranajr outra solucao
     // Provider.of<MonitoringCategories>(context, listen: false).loadItems();
 
-    Provider.of<Solutions>(context, listen: false)
-        .getItem("cd9f8981-1005-4e7c-8a2e-eb38278829f0");
+    // Provider.of<Solutions>(context, listen: false)
+    //     .getItem("cd9f8981-1005-4e7c-8a2e-eb38278829f0");
+    Provider.of<Patients>(context, listen: false).loadItem();
 
     // podia se usar esta hack mas é melhor evitar hacks
     // Future.delayed(Duration.zero).then((_) {

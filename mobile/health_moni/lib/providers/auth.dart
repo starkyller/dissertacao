@@ -11,7 +11,7 @@ import 'package:health_moni/models/users/models.dart';
 import 'package:health_moni/exceptions/http_exception.dart';
 import 'package:health_moni/app-config.dart' show apiDomain;
 
-enum UserTypes { PATIENT, MEDICALSTAFF }
+//enum UserTypes { PATIENT, MEDICALSTAFF }
 
 class Auth with ChangeNotifier {
   User _user;
@@ -29,6 +29,14 @@ class Auth with ChangeNotifier {
   User get user {
     return _user;
   }
+
+  set patientUser(Patient patient) {
+    _user = patient;
+  }
+
+  // set medicalStaffUser(Patient patient) {
+  //   _user = patient;
+  // }
 
   Map<String, String> get headers {
     return _headers;

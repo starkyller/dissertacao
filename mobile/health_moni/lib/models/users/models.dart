@@ -10,8 +10,8 @@ class User {
 
   User({
     @required this.alias,
-    @required this.token,
-    @required this.userType,
+    this.token,
+    this.userType,
     this.username,
   });
 
@@ -24,6 +24,12 @@ class User {
       username: json['username'] ?? "",
       token: json['token'],
       userType: _userType,
+    );
+  }
+
+  factory User.fromJsonAliasOnly(dynamic json) {
+    return User(
+      alias: json['alias'],
     );
   }
 
@@ -53,6 +59,14 @@ class Patient extends User {
           token: token,
           userType: UserTypes.PATIENT,
         );
+
+  factory Patient.fromUser({User user}) {
+    return Patient(
+      alias: user.alias,
+      username: user.username,
+      token: user.token,
+    );
+  }
 
   factory Patient.fromJson(dynamic json) {
     final guardiansJsonList = json['guardians'];
