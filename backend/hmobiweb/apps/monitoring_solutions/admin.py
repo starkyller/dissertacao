@@ -1,7 +1,4 @@
 from django.contrib import admin
-#from django.contrib.auth.admin import UserAdmin as djUserAdmin
-#from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-#from django.contrib.auth import get_user_model
 from django.utils.translation import gettext, gettext_lazy as _
 
 from .models import MonitoringCategory, SolutionObjective, Solution

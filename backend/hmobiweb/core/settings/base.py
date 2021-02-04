@@ -25,6 +25,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'apps.users',
     'apps.monitoring_solutions.apps.MonitoringSolutionsConfig',
+    'apps.user_monitoring.apps.UserMonitoringConfig',
 ]
 
 

@@ -18,12 +18,10 @@ class MonitoringCategory(Slugable):
 
     def __str__(self):
         return self.designation
-    
 
     class Meta:
         verbose_name = _("Monitoring Category")
         verbose_name_plural = _("Monitoring Categories")
-        
 
 
 class SolutionObjective(Slugable):
@@ -43,10 +41,12 @@ class Solution(Slugable):
         "The monitoring category to which the solution belongs"),)
     objective = models.ForeignKey('SolutionObjective', verbose_name=_('Objective'), on_delete=models.CASCADE, help_text=_(
         "The final objective of the solution in question"),)
-    name = models.CharField(_('Name'), max_length=80,
+    name = models.CharField(verbose_name=_('Name'), max_length=80,
                             unique=True, help_text=_("E.i, Fall Detection"),)
     description = models.TextField(_('Description'), max_length=350, blank=True, help_text=_(
         "Optional: Provide a description for your solution"),)
+    sampleJsonSchema = models.JSONField(verbose_name=_("Json Schema for Sample"), blank=False, help_text=_(
+        "Define the Json Schema that should be used for the storage of the data sample"),)
 
     def __str__(self):
         return self.name
