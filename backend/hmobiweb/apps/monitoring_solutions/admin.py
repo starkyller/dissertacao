@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import gettext, gettext_lazy as _
 
+
+from .forms import SolutionForm
 from .models import MonitoringCategory, SolutionObjective, Solution
 
 
@@ -12,11 +14,13 @@ class SolutionObjectiveAdmin(admin.ModelAdmin):
 
 class SolutionAdmin(admin.ModelAdmin):
     model = Solution
+    form = SolutionForm
 
     list_display = ["name", "category", "objective"]
     search_fields = ["name"]
 
     list_filter = ('category', 'objective')
+
 
 admin.site.register(MonitoringCategory, MonitoringCategoryAdmin)
 admin.site.register(SolutionObjective, SolutionObjectiveAdmin)

@@ -13,6 +13,7 @@ pydot = "*"
 [packages]
 django = "*"
 djangorestframework = "*"
+django-json-widget = "*"
 
 [requires]
 python_version = "3.6"
