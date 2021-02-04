@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
             accentColor: Colors.greenAccent,
           ),
           home: auth.isAuth
-              ? HomeScreen()
+              ? HomeScreen(auth)
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (ctx, authResultSnapshot) =>

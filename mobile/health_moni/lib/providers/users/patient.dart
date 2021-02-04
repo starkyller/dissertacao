@@ -42,6 +42,7 @@ class Patients with ChangeNotifier {
       _patient.guardianOf = _guardianOf;
 
       _auth.patientUser = _patient;
+      notifyListeners();
 
       return _patient;
     } catch (e) {
