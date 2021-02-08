@@ -1,10 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
 from django.utils.translation import gettext, gettext_lazy as _
 
-from .models import UserSolutions
-
+from .models import UserSolutions, CollectedData
+from .forms import CollectedDataForm
 
 class UserSolutionsAdmin(admin.ModelAdmin):
     model = UserSolutions
@@ -21,4 +20,9 @@ class UserSolutionsAdmin(admin.ModelAdmin):
         return super().has_change_permission(request, obj=obj)
 
 
+class CollectedDataAdmin(admin.ModelAdmin):
+    model = CollectedData
+    form = CollectedDataForm
+
 admin.site.register(UserSolutions, UserSolutionsAdmin)
+admin.site.register(CollectedData, CollectedDataAdmin)

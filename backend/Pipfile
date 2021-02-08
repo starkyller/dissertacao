@@ -14,6 +14,7 @@ pydot = "*"
 django = "*"
 djangorestframework = "*"
 django-json-widget = "*"
+jsonschema = "*"
 
 [requires]
 python_version = "3.6"
