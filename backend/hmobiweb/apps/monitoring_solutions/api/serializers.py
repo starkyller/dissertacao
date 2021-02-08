@@ -34,4 +34,5 @@ class SolutionDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Solution
-        fields = ['slug', 'name', 'description', 'objective', 'category']
+        fields = ['slug', 'name', 'description',
+                  'objective', 'category', 'sampleJsonSchema']
