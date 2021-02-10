@@ -54,6 +54,7 @@ class Solution extends Slugable {
   final String description;
   final MonitoringCategory category;
   final SolutionObjective objective;
+  final Map<String, dynamic> jsonSchema;
 
   Solution({
     @required slug,
@@ -61,6 +62,7 @@ class Solution extends Slugable {
     @required this.description,
     @required this.category,
     @required this.objective,
+    @required this.jsonSchema,
   }) : super(
           slug: slug,
         );
@@ -76,6 +78,7 @@ class Solution extends Slugable {
       description: json['description'],
       category: monCat,
       objective: solObj,
+      jsonSchema: json['sampleJsonSchema'],
     );
   }
 }

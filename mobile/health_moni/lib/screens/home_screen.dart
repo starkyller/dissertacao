@@ -21,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var _isInit = true;
+  var _isLoading = false;
   var _isPatient = true;
 
   @override
@@ -41,13 +42,28 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  Future<void> _loadPatientData() async {
+    Provider.of<Patients>(context, listen: false).loadItem();
+  }
+
+  void _loadMedicalStaffData() {}
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
       if (widget._authProv.user.userType == UserTypes.PATIENT) {
-        Provider.of<Patients>(context, listen: false).loadItem();
+        setState(() {
+          _isLoading = true;
+        });
+
+        _loadPatientData();
+        setState(() {
+          _isLoading = false;
+        });
+        //Provider.of<Patients>(context, listen: false).loadItem();
       } else {
         _isPatient = false;
+        _loadMedicalStaffData();
       }
 
       _isInit = false;
@@ -70,18 +86,22 @@ class _HomeScreenState extends State<HomeScreen> {
       // body: Center(
       //   child: Text('Home Page'),
       // ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text('teste123'),
-            FlatButton(
-              color: Theme.of(context).accentColor,
-              onPressed: _teste123,
-              child: Text("ee"),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text('teste123'),
+                  FlatButton(
+                    color: Theme.of(context).accentColor,
+                    onPressed: _teste123,
+                    child: Text("ee"),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
