@@ -18,12 +18,14 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 
 
-
 urlpatterns = [
 
     # REST FRAMEWORK
     path('api/auth/', include('apps.users.api.urls', namespace='users_api')),
-    path('api/ms/', include('apps.monitoring_solutions.api.urls', namespace='monitoring_solutions_api')),
+    path('api/ms/', include('apps.monitoring_solutions.api.urls',
+                            namespace='monitoring_solutions_api')),
+    path('api/us/', include('apps.user_monitoring.api.urls',
+                            namespace='user_monitoring_api')),
 
 ]
 

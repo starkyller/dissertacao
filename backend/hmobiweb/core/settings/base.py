@@ -62,7 +62,6 @@ TEMPLATES = [
 ]
 
 
-
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Password validation
@@ -97,12 +96,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-gettext = lambda s: s
+
+def gettext(s): return s
+
 
 LANGUAGES = (
     ('pt', gettext('pt')),
     ('en', gettext('en')),
-    ('zh', gettext('zh_CN')), # in order to work you need the locales installed in the system
+    # in order to work you need the locales installed in the system
+    ('zh', gettext('zh_CN')),
 )
 
 
@@ -112,12 +114,16 @@ LANGUAGES = (
 STATIC_URL = '/static/'
 
 
-
 AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.DjangoModelPermissions',
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',

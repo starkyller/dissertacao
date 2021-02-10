@@ -23,9 +23,6 @@ class MonitoringCategoryListAPIView(generics.ListAPIView):
 
     """
 
-    # authentication_classes = [TokenAuthentication,]
-    # permission_classes = [IsAuthenticated,]
-
     queryset = MonitoringCategory.objects.all()
     serializer_class = MonitoringCategorySerializer
 
@@ -36,8 +33,6 @@ class MonitoringCategoryDetailAPIView(generics.RetrieveAPIView):
 
     """
 
-    # authentication_classes = [TokenAuthentication,]
-    # permission_classes = [IsAuthenticated,]
     lookup_field = 'slug'
     queryset = MonitoringCategory.objects.all()
     serializer_class = MonitoringCategorySerializer
@@ -50,8 +45,6 @@ class SolutionObjectiveListAPIView(generics.ListAPIView):
 
     """
 
-    # authentication_classes = [TokenAuthentication,]
-    # permission_classes = [IsAuthenticated,]
     lookup_field = 'slug'
     queryset = SolutionObjective.objects.all()
     serializer_class = SolutionObjectiveSerializer
@@ -64,8 +57,6 @@ class SolutionObjectiveDetailAPIView(generics.RetrieveAPIView):
 
     """
 
-    # authentication_classes = [TokenAuthentication,]
-    # permission_classes = [IsAuthenticated,]
     lookup_field = 'slug'
     queryset = SolutionObjective.objects.all()
     serializer_class = SolutionObjectiveSerializer
@@ -78,9 +69,6 @@ class SolutionListAPIView(generics.ListAPIView):
 
     """
 
-    # authentication_classes = [TokenAuthentication,]
-    # permission_classes = [IsAuthenticated,]
-
     queryset = Solution.objects.all()
     serializer_class = SolutionSerializer
 
@@ -91,8 +79,6 @@ class SolutionDetailAPIView(generics.RetrieveAPIView):
 
     """
 
-    # authentication_classes = [TokenAuthentication,]
-    # permission_classes = [IsAuthenticated,]
     lookup_field = 'slug'
     queryset = Solution.objects.all()
     serializer_class = SolutionDetailSerializer

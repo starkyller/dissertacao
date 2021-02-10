@@ -12,6 +12,9 @@ from ..models import Patient
 
 class CustomAuthToken(ObtainAuthToken):
     # override of the ObtainAuthToken view to include more than the token
+
+    permission_classes = []
+
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
                                        context={'request': request})

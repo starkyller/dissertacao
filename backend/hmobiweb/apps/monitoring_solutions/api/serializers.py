@@ -16,14 +16,9 @@ class SolutionObjectiveSerializer(serializers.ModelSerializer):
 
 
 class SolutionSerializer(serializers.ModelSerializer):
-    objective = serializers.SlugRelatedField(
-        many=False, read_only=True, slug_field='slug')
-    category = serializers.SlugRelatedField(
-        many=False, read_only=True, slug_field='slug')
-
     class Meta:
         model = Solution
-        fields = ['slug', 'name', 'objective', 'category']
+        fields = ['name', 'slug',]
 
 
 class SolutionDetailSerializer(serializers.ModelSerializer):
@@ -34,5 +29,5 @@ class SolutionDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Solution
-        fields = ['slug', 'name', 'description',
+        fields = ['name', 'slug', 'description',
                   'objective', 'category', 'sampleJsonSchema']

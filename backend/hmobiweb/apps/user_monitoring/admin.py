@@ -24,5 +24,7 @@ class CollectedDataAdmin(admin.ModelAdmin):
     model = CollectedData
     form = CollectedDataForm
 
+    list_display = ["userSolution",]
+
 admin.site.register(UserSolutions, UserSolutionsAdmin)
 admin.site.register(CollectedData, CollectedDataAdmin)

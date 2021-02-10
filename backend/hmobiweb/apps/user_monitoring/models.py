@@ -1,7 +1,7 @@
 import json
 
 from jsonschema import (
-    validate, 
+    validate,
     exceptions as jsonschema_exceptions
 )
 
@@ -20,7 +20,7 @@ class UserSolutions(models.Model):
         "The solution to be associated with a specific patient"),)
 
     def __str__(self):
-        return "%s - %s" %(self.patient.__str__(), self.solution.__str__())
+        return "%s - %s" % (self.patient.__str__(), self.solution.__str__())
 
     class Meta:
         verbose_name = _("User Monitoring Solution")
@@ -42,24 +42,23 @@ class CollectedData(models.Model):
     dataSample = models.JSONField(verbose_name=_("Data Sample"), blank=False, null=False, default=dict, help_text=_(
         "Data sample that was collected and that follows the specific schema defined in the solution"),)
 
-
     def __str__(self):
         return self.userSolution.patient.__str__()
 
     def clean(self, *args, **kwargs):
+
         try:
-          if self.dataSample is not None:
-            _schema = self.userSolution.solution.sampleJsonSchema
-            validate(instance=self.dataSample, schema=_schema)  
+            if self.dataSample is not None:
+                _schema = self.userSolution.solution.sampleJsonSchema
+                validate(instance=self.dataSample, schema=_schema)
         except jsonschema_exceptions.SchemaError as e:
             raise ValidationError(e.message, code='invalid')
         except jsonschema_exceptions.ValidationError as e:
-            raise ValidationError({'dataSample': [e.message,]})
+            raise ValidationError({'dataSample': [e.message, ]})
         except Exception as e:
             raise ValidationError(e.message, code='invalid')
 
         super(CollectedData, self).clean(*args, **kwargs)
-        
 
     class Meta:
         verbose_name = _("Collected Data")
