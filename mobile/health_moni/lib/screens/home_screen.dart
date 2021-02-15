@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_moni/models/users/models.dart';
 import 'package:health_moni/providers/auth.dart';
+import 'package:health_moni/providers/user_monitoring/user_solution.dart';
 import 'package:provider/provider.dart';
 
 import 'package:health_moni/models/monitoring_solutions/models.dart';
@@ -44,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadPatientData() async {
     Provider.of<Patients>(context, listen: false).loadItem();
+    Provider.of<UserMonitoring>(context, listen: false).loadItems();
   }
 
   void _loadMedicalStaffData() {}

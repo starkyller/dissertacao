@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:health_moni/models/monitoring_solutions/models.dart';
 import 'package:health_moni/providers/monitoring_solutions/solution.dart';
+import 'package:health_moni/providers/user_monitoring/user_solution.dart';
 import 'package:health_moni/providers/users/patient.dart';
 import 'package:health_moni/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -77,6 +78,16 @@ class MyApp extends StatelessWidget {
           auth.headers,
           soliObjs,
           moniCats,
+        ),
+      ),
+      ChangeNotifierProxyProvider2<Auth, Solutions, UserMonitoring>(
+        create: (ctx) => UserMonitoring(
+          null,
+          null,
+        ),
+        update: (ctx, auth, sols, previousOrdersObject) => UserMonitoring(
+          auth,
+          sols,
         ),
       ),
     ];
