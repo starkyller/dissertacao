@@ -25,6 +25,13 @@ class UserMonitoring with ChangeNotifier {
     return [..._subscribedSolutions];
   }
 
+  List<Map<String, dynamic>> get itemsInJson {
+    // var a =
+    //     jsonEncode(_subscribedSolutions.map((i) => i.toJavaJson()).toList());
+    var a = _subscribedSolutions.map((i) => i.toJavaJson()).toList();
+    return a;
+  }
+
   Future<void> loadItems() async {
     final url = _baseURL + "user-solutions/${_auth.user.alias}/";
     List<Solution> loadedSubscribedSolutions = [];
@@ -43,7 +50,9 @@ class UserMonitoring with ChangeNotifier {
 
       await Future.wait(extractedData.map((orderData) async {
         final slugy = orderData["solution"]["slug"];
+
         await _solutionProv.getItem(slugy).then((value) {
+          value.subscriptionId = orderData["id"];
           loadedSubscribedSolutions.add(value);
         });
       }));

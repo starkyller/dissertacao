@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:health_moni/models/users/models.dart';
 import 'package:health_moni/providers/auth.dart';
 import 'package:health_moni/providers/user_monitoring/user_solution.dart';
@@ -25,6 +28,25 @@ class _HomeScreenState extends State<HomeScreen> {
   var _isLoading = false;
   var _isPatient = true;
 
+  Future<void> startServiceInPlatform(UserMonitoring _provi) async {
+    if (Platform.isAndroid) {
+      var methodChannel = MethodChannel("com.example.health_moni.messages");
+
+      String data = await methodChannel.invokeMethod("startService");
+      debugPrint(data);
+
+      Map<String, dynamic> args = {};
+
+      args["headers"] = widget._authProv.headers;
+      // args["subscriptions"] =
+      //     Provider.of<UserMonitoring>(context, listen: false).items;
+      args["subscriptions"] = _provi.itemsInJson;
+      // widget._authProv.headers;
+      data = await methodChannel.invokeMethod("loadSubscriptions", args);
+      debugPrint(data);
+    }
+  }
+
   @override
   void initState() {
     // no init state o provider so funcina com o listen:false, mas como nao
@@ -44,8 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadPatientData() async {
-    Provider.of<Patients>(context, listen: false).loadItem();
-    Provider.of<UserMonitoring>(context, listen: false).loadItems();
+    await Provider.of<Patients>(context, listen: false).loadItem();
+    UserMonitoring _userMonprov =
+        Provider.of<UserMonitoring>(context, listen: false);
+
+    await _userMonprov.loadItems();
+
+    await startServiceInPlatform(_userMonprov);
   }
 
   void _loadMedicalStaffData() {}

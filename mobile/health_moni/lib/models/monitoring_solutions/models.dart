@@ -55,6 +55,7 @@ class Solution extends Slugable {
   final MonitoringCategory category;
   final SolutionObjective objective;
   final Map<String, dynamic> jsonSchema;
+  int subscriptionId;
 
   Solution({
     @required slug,
@@ -81,4 +82,9 @@ class Solution extends Slugable {
       jsonSchema: json['sampleJsonSchema'],
     );
   }
+
+  Map<String, dynamic> toJavaJson() => {
+        'jsonSchema': this.jsonSchema,
+        'subscriptionId': this.subscriptionId,
+      };
 }
