@@ -12,7 +12,7 @@ class UserSolutionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserSolutions
-        fields = ['solution']
+        fields = ['id', 'solution']
 
 
 class CollectedDataSerializer(serializers.ModelSerializer):
