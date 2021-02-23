@@ -38,8 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Map<String, dynamic> args = {};
 
       args["headers"] = widget._authProv.headers;
-      // args["subscriptions"] =
-      //     Provider.of<UserMonitoring>(context, listen: false).items;
+      args["baseUrl"] = _provi.baseUrl;
       args["subscriptions"] = _provi.itemsInJson;
       // widget._authProv.headers;
       data = await methodChannel.invokeMethod("loadSubscriptions", args);

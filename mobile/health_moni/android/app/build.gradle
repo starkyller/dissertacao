@@ -44,6 +44,7 @@ android {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
+            minifyEnabled false
             debuggable true
             signingConfig signingConfigs.debug
         }
@@ -52,4 +53,9 @@ android {
 
 flutter {
     source '../..'
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

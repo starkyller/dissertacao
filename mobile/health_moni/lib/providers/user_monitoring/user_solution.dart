@@ -25,6 +25,10 @@ class UserMonitoring with ChangeNotifier {
     return [..._subscribedSolutions];
   }
 
+  String get baseUrl {
+    return _baseURL;
+  }
+
   List<Map<String, dynamic>> get itemsInJson {
     // var a =
     //     jsonEncode(_subscribedSolutions.map((i) => i.toJavaJson()).toList());
