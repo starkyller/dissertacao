@@ -1,5 +1,15 @@
 package aux;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
@@ -12,10 +22,14 @@ import java.util.List;
 import java.util.Map;
 
 public class SubscriptionService {
+    private static final String TAG = "SubscriptionService";
     private static SubscriptionService singleton = null;
+    private HardCodedData hardCodedData= null;
     private List<Subscription> subscriptions = null;
     private Map<String,String> headers = null;
     private String baseUrl;
+    private RequestQueue requestQueue = null;
+    private static Context ctx;
 
 
     /*
@@ -25,19 +39,30 @@ public class SubscriptionService {
         return singleton;
     }
 
-    private SubscriptionService(){
+    private SubscriptionService(Context context){
+        ctx = context;
 
         if(this.subscriptions == null)
             this.subscriptions = new ArrayList<Subscription>();
 
         if(this.headers == null)
             this.headers = new HashMap<String,String>();
+
+        if(this.requestQueue == null)
+            this.requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
+
+        if(this.hardCodedData == null){
+            this.hardCodedData = HardCodedData.getInstance();
+            this.hardCodedData.setNewDay();
+        }
+
+
     }
 
-    public static SubscriptionService getInstance() {
+    public static SubscriptionService getInstance(Context context) {
 
         if( singleton == null )
-            singleton = new SubscriptionService();
+            singleton = new SubscriptionService(context);
 
         return singleton;
     }
@@ -54,14 +79,13 @@ public class SubscriptionService {
     }
 
     public void addSubscriptionFromArrayList(@NotNull List<HashMap<Object,Object>> subscriptionList) {
-        Gson gson = new Gson();
 
         for (HashMap<Object,Object> temp : subscriptionList){
-            Subscription aux = new Subscription( (int)temp.get("subscriptionId"), getJsonFromMap((Map<String, Object>)temp.get("jsonSchema")) );
+            Subscription aux = new Subscription( (int)temp.get("subscriptionId"),
+                    getJsonFromMap((Map<String, Object>)temp.get("jsonSchema")) );
 
             addSubscription(aux);
         }
-        //this.subscriptions.add(subscription);
     }
 
     private JSONObject getJsonFromMap(Map<String, Object> map) {
@@ -105,6 +129,49 @@ public class SubscriptionService {
         this.baseUrl = baseUrl;
     }
 
+    public void startSampleTransmission(){
+
+        postSubscriptionData();
+    }
+
+    private void postSubscriptionData(){
+        Subscription temp = subscriptions.get(0);
+
+        Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i(TAG, response.toString() );
+            }
+        };
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.e(TAG, error.toString() )
+                // save data to try again later
+                ;
+            }
+        };
+
+        JSONObject body = hardCodedData.GenerateData(temp.getId());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.POST,
+                        this.baseUrl,
+                        body,
+                        responseListener,
+                        errorListener){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return headers;
+            }
+        };
+
+
+        this.requestQueue.add(jsonObjectRequest);
+
+    }
 
 
 }

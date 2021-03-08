@@ -38,10 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
       Map<String, dynamic> args = {};
 
       args["headers"] = widget._authProv.headers;
-      args["baseUrl"] = _provi.baseUrl;
+      args["baseUrl"] = _provi.baseUrl + "data-collection/";
       args["subscriptions"] = _provi.itemsInJson;
       // widget._authProv.headers;
       data = await methodChannel.invokeMethod("loadSubscriptions", args);
+      debugPrint(data);
+
+      data = await methodChannel.invokeMethod("asd", args);
       debugPrint(data);
     }
   }
