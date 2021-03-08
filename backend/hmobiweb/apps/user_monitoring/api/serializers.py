@@ -16,7 +16,7 @@ class UserSolutionsSerializer(serializers.ModelSerializer):
 
 
 class CollectedDataSerializer(serializers.ModelSerializer):
-
+   
     def validate(self, data):
         """
         Add validation against schema

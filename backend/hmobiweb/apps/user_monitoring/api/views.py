@@ -38,6 +38,8 @@ class UserSampleCreateAPIView(generics.CreateAPIView):
     Return the list of solutions that a User is subscribed to.
 
     """
+    authentication_classes=[]
+    permission_classes=[]
     
     serializer_class = CollectedDataSerializer
     queryset = CollectedData.objects.all()
