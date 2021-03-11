@@ -1,28 +1,12 @@
-package aux;
-
-import android.content.Context;
-
-import com.android.volley.toolbox.Volley;
+package aux.hardcoded;
 
 
-import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.cert.TrustAnchor;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import aux.hardcoded.HardCodedDay;
-import aux.hardcoded.HardCodedDeath;
-import aux.hardcoded.HardCodedDinnerOut;
-import aux.hardcoded.HardCodedNoMeal;
 
 public class HardCodedData {
 

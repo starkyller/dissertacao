@@ -6,10 +6,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import java.time.Period;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import aux.SubscriptionService;
 import aux.SubscriptionWorker;
+import aux.hardcoded.HardCodedWorker;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -27,6 +30,9 @@ public class MainActivity extends FlutterActivity {
     private Intent forService;
     private static final String CHANNEL = "com.example.health_moni.messages";
     private SubscriptionService subscriptionService = null;
+    public static final String WORK_TAG_POST_DATA ="PostDataWorkerTag";
+    public static final String WORK_TAG_HARD_CODED ="WorkiWorkerTag";
+
 
     BinaryMessenger getFlutterView() {
         return getFlutterEngine().getDartExecutor().getBinaryMessenger();
@@ -49,35 +55,21 @@ public class MainActivity extends FlutterActivity {
                         switch (methodCall.method) {
                             case "startService":
                                 startService();
-                                subscriptionService = SubscriptionService.getInstance(getApplicationContext());
+                                //subscriptionService = SubscriptionService.getInstance(getApplicationContext());
                                 result.success("Service Started");
                                 break;
                             case "loadSubscriptions":
-                                HashMap<Object, Object> args = (HashMap<Object, Object>) methodCall.arguments;
-                                subscriptionService
-                                        .setBaseUrl(args.get("baseUrl").toString());
-                                subscriptionService
-                                        .setHeaders((Map<String, String>) args.get("headers"));
+                                HashMap<Object, Object> args =
+                                        (HashMap<Object, Object>) methodCall.arguments;
 
-                                List<HashMap<Object, Object>> subscriptionList =
-                                        (List<HashMap<Object, Object>>) args.get("subscriptions");
-                                subscriptionService
-                                        .addSubscriptionFromArrayList(subscriptionList);
+                                loadSubscriptions(args);
 
-
-                                PeriodicWorkRequest postData = new PeriodicWorkRequest.Builder(
-                                        SubscriptionWorker.class,
-                                        1,
-                                        TimeUnit.MINUTES
-                                ).build();
-
-                                WorkManager.getInstance(getApplicationContext()).enqueue(postData);
-                                // ler https://stackoverflow.com/questions/46161930/scheduled-job-executes-multiple-time-in-evernote-androidjob/46163527#46163527
                                 result.success("Subscriptions Loaded");
                                 break;
                             default:  //Code for case where you don't recognize the call method
-                                subscriptionService.startSampleTransmission();
-                                result.success("Submitted away");
+                                //subscriptionService.startSampleTransmission();
+                                //result.success("Submitted away");
+                                result.notImplemented();
                                 break;
                         }
 
@@ -87,11 +79,54 @@ public class MainActivity extends FlutterActivity {
     }
 
     private void startService() {
+        subscriptionService = SubscriptionService.getInstance(getApplicationContext());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(forService);
         } else {
             startService(forService);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void loadSubscriptions(HashMap<Object, Object> args) {
+
+        subscriptionService.setBaseUrl(args.get("baseUrl").toString());
+        subscriptionService.setHeaders((Map<String, String>) args.get("headers"));
+
+        List< HashMap<Object, Object> > subscriptionList =
+                (List< HashMap<Object, Object> >) args.get("subscriptions");
+
+        subscriptionService.addSubscriptionFromArrayList(subscriptionList);
+
+/*        PeriodicWorkRequest postData = new PeriodicWorkRequest.Builder(
+                SubscriptionWorker.class,
+                1,
+                TimeUnit.MINUTES
+        ).build();*/
+        startHardCodedWorker();
+
+        OneTimeWorkRequest postData = new OneTimeWorkRequest.Builder(SubscriptionWorker.class).build();
+
+        WorkManager.getInstance(getApplicationContext())
+                .enqueueUniqueWork(WORK_TAG_POST_DATA,
+                        ExistingWorkPolicy.REPLACE, postData);
+    }
+    
+    private void startHardCodedWorker() {
+        
+        PeriodicWorkRequest worki = new PeriodicWorkRequest.Builder(
+                HardCodedWorker.class,
+                15,
+                TimeUnit.MINUTES
+        ).build();
+        
+        WorkManager.getInstance(getApplicationContext())
+                .enqueueUniquePeriodicWork(
+                        WORK_TAG_HARD_CODED,
+                        ExistingPeriodicWorkPolicy.KEEP,
+                        worki);
+        
     }
 
 }

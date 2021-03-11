@@ -43,9 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
       // widget._authProv.headers;
       data = await methodChannel.invokeMethod("loadSubscriptions", args);
       debugPrint(data);
-
-      data = await methodChannel.invokeMethod("asd", args);
-      debugPrint(data);
     }
   }
 
