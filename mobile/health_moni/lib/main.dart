@@ -5,6 +5,7 @@ import 'package:health_moni/providers/monitoring_solutions/solution.dart';
 import 'package:health_moni/providers/user_monitoring/user_solution.dart';
 import 'package:health_moni/providers/users/patient.dart';
 import 'package:health_moni/screens/splash_screen.dart';
+import 'package:health_moni/screens/tutelary/tutelary_home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:health_moni/providers/monitoring_solutions/monitoring_category.dart';
@@ -111,14 +112,9 @@ class MyApp extends StatelessWidget {
                           ? SplashScreen()
                           : AuthScreen(),
                 ),
-          // home: AuthScreen(),
           routes: {
             SplashScreen.routeName: (ctx) => SplashScreen(),
-            // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-            // CartScreen.routeName: (ctx) => CartScreen(),
-            // OrdersScreen.routeName: (ctx) => OrdersScreen(),
-            // UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
-            // EditProductScreen.routeName: (ctx) => EditProductScreen(),
+            TutelaryScreen.routeName: (ctx) => TutelaryScreen(auth),
           },
         ),
       ),

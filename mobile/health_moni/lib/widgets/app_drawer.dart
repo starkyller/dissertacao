@@ -10,16 +10,24 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text("Hello Friend"),
+            title: Text("Navigation"),
             // desabilita aquele botao de retroceder com a setinha
             automaticallyImplyLeading: false,
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.shop),
+            leading: Icon(Icons.home),
             title: Text("Home"),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.shield),
+            title: Text("My tutelary"),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed('/tutelary');
             },
           ),
           Divider(),

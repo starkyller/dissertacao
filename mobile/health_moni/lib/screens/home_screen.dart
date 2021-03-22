@@ -2,16 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:health_moni/models/users/models.dart';
 import 'package:health_moni/providers/auth.dart';
 import 'package:health_moni/providers/user_monitoring/user_solution.dart';
-import 'package:provider/provider.dart';
-
-import 'package:health_moni/models/monitoring_solutions/models.dart';
-import 'package:health_moni/providers/monitoring_solutions/solution.dart';
 import 'package:health_moni/providers/users/patient.dart';
-import 'package:health_moni/providers/monitoring_solutions/monitoring_category.dart';
-
 import 'package:health_moni/widgets/app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -119,13 +116,22 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('teste123'),
-                  FlatButton(
-                    color: Theme.of(context).accentColor,
-                    onPressed: _teste123,
-                    child: Text("ee"),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'You can minimize the app now,\n it will continue to run in the background',
+                      ),
+                      // FlatButton(
+                      //   color: Theme.of(context).accentColor,
+                      //   onPressed: _teste123,
+                      //   child: Text("ee"),
+                      // ),
+                    ],
                   ),
                 ],
               ),

@@ -14,6 +14,10 @@ class Patients with ChangeNotifier {
 
   Patients(this._auth);
 
+  Patient get user {
+    return _auth.user;
+  }
+
   String _baseURL = apiDomain + "auth/";
 
   Future<Patient> loadItem() async {
