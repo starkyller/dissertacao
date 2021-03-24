@@ -162,12 +162,12 @@ Luís Tiago Favas - [@Luis_T_F](https://twitter.com/Luis_T_F) - [Contact via Ema
 [contributors-shield]: https://img.shields.io/github/contributors/starkyller/repo.svg?style=for-the-badge
 [contributors-url]: https://github.com/starkyller/repo/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/starkyller/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/starkyller/repo/network/members
+[forks-url]: https://github.com/starkyller/dissertacao/network/members
 [stars-shield]: https://img.shields.io/github/stars/starkyller/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/starkyller/repo/stargazers
+[stars-url]: https://github.com/starkyller/dissertacao/stargazers
 [issues-shield]: https://img.shields.io/github/issues/starkyller/repo.svg?style=for-the-badge
 [issues-url]: https://github.com/starkyller/dissertacao/issues
 [license-shield]: https://img.shields.io/github/license/starkyller/repo.svg?style=for-the-badge
-[license-url]: https://github.com/starkyller/repo/blob/master/LICENSE.txt
+[license-url]: https://github.com/starkyller/dissertacao/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/luis-tiago-favas
