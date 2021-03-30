@@ -117,7 +117,7 @@ public class MainActivity extends FlutterActivity {
         
         PeriodicWorkRequest worki = new PeriodicWorkRequest.Builder(
                 HardCodedWorker.class,
-                15,
+                15, // change to 24 hours
                 TimeUnit.MINUTES
         ).build();
         
