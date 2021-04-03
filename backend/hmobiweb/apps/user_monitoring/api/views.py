@@ -34,8 +34,7 @@ class UserSolutionsDetailAPIView(generics.ListAPIView):
 
 class UserSampleCreateAPIView(generics.CreateAPIView):
     """
-    get:
-    Return the list of solutions that a User is subscribed to.
+    Post a Data Sample for a solution
 
     """
     authentication_classes=[]

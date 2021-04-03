@@ -82,3 +82,4 @@ class SolutionDetailAPIView(generics.RetrieveAPIView):
     lookup_field = 'slug'
     queryset = Solution.objects.all()
     serializer_class = SolutionDetailSerializer
+

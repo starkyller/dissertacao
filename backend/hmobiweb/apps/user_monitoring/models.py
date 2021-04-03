@@ -40,7 +40,7 @@ class CollectedData(models.Model):
     collectedTimeStamp = models.DateTimeField(verbose_name=_("Time Stamp of the collection"), blank=False, help_text=_(
         "Time stamp at the time of collection of the data sample"),)
     dataSample = models.JSONField(verbose_name=_("Data Sample"), blank=False, null=False, default=dict, help_text=_(
-        "Data sample that was collected and that follows the specific schema defined in the solution"),)
+        "JSON Object that must fulfil the JSON Schema provided by the solution in question"),)
 
     def __str__(self):
         return self.userSolution.patient.__str__()

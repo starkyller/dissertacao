@@ -11,6 +11,13 @@ from .serializers import PatientSerializer
 from ..models import Patient
 
 class CustomAuthToken(ObtainAuthToken):
+    """
+    post:
+    Login
+
+    """
+
+
     # override of the ObtainAuthToken view to include more than the token
 
     permission_classes = []

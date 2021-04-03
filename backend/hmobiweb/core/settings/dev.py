@@ -13,6 +13,7 @@ ALLOWED_HOSTS = ['*']
 
 DEV_APPS = [
     'django_extensions',
+    'drf_yasg',
 ]
 
 INSTALLED_APPS += DEV_APPS
