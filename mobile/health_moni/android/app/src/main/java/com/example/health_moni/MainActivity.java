@@ -41,7 +41,6 @@ public class MainActivity extends FlutterActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //GeneratedPluginRegistrant.registerWith(this);
 
         forService = new Intent(MainActivity.this, MyService.class);
 
@@ -55,7 +54,6 @@ public class MainActivity extends FlutterActivity {
                         switch (methodCall.method) {
                             case "startService":
                                 startService();
-                                //subscriptionService = SubscriptionService.getInstance(getApplicationContext());
                                 result.success("Service Started");
                                 break;
                             case "loadSubscriptions":
@@ -66,9 +64,7 @@ public class MainActivity extends FlutterActivity {
 
                                 result.success("Subscriptions Loaded");
                                 break;
-                            default:  //Code for case where you don't recognize the call method
-                                //subscriptionService.startSampleTransmission();
-                                //result.success("Submitted away");
+                            default:  
                                 result.notImplemented();
                                 break;
                         }
@@ -99,11 +95,6 @@ public class MainActivity extends FlutterActivity {
 
         subscriptionService.addSubscriptionFromArrayList(subscriptionList);
 
-/*        PeriodicWorkRequest postData = new PeriodicWorkRequest.Builder(
-                SubscriptionWorker.class,
-                1,
-                TimeUnit.MINUTES
-        ).build();*/
         startHardCodedWorker();
 
         OneTimeWorkRequest postData = new OneTimeWorkRequest.Builder(SubscriptionWorker.class).build();

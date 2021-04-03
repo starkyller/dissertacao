@@ -95,7 +95,6 @@ public class HardCodedData {
 
         DateTime timestamp = sampleTime.toDateTime(null);
         DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-        //String str = fmt.print(timestamp);
 
 
         try {

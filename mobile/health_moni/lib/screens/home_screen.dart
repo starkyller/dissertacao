@@ -43,24 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  @override
-  void initState() {
-    // no init state o provider so funcina com o listen:false, mas como nao
-    // queremos isso aqui temos de arranajr outra solucao
-    // Provider.of<MonitoringCategories>(context, listen: false).loadItems();
-
-    // Provider.of<Solutions>(context, listen: false)
-    //     .getItem("cd9f8981-1005-4e7c-8a2e-eb38278829f0");
-    // Provider.of<Patients>(context, listen: false).loadItem();
-
-    // podia se usar esta hack mas é melhor evitar hacks
-    // Future.delayed(Duration.zero).then((_) {
-    //   Provider.of<MonitoringCategories>(context).loadItems();
-    // });124ea599-01a2-49a1-be2f-c1fcb04d003e
-
-    super.initState();
-  }
-
   Future<void> _loadPatientData() async {
     await Provider.of<Patients>(context, listen: false).loadItem();
     UserMonitoring _userMonprov =
@@ -85,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _isLoading = false;
         });
-        //Provider.of<Patients>(context, listen: false).loadItem();
       } else {
         _isPatient = false;
         _loadMedicalStaffData();
@@ -97,10 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
-  void _teste123() {
-    var a = 11;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text("Dashboard"),
       ),
       drawer: AppDrawer(),
-      // body: Center(
-      //   child: Text('Home Page'),
-      // ),
       body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -126,11 +100,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         'You can minimize the app now,\n it will continue to run in the background',
                       ),
-                      // FlatButton(
-                      //   color: Theme.of(context).accentColor,
-                      //   onPressed: _teste123,
-                      //   child: Text("ee"),
-                      // ),
                     ],
                   ),
                 ],
@@ -139,20 +108,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// class HomeScreen extends StatelessWidget {
-//   static const routeName = '/home';
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text("Home"),
-//       ),
-//       drawer: AppDrawer(),
-//       body: Center(
-//         child: Text('Home Page'),
-//       ),
-//     );
-//   }
-// }
