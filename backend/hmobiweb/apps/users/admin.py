@@ -31,9 +31,19 @@ class UserAdmin(djUserAdmin):
     model = User
 
     fks = (
-        (None, {'fields': ('username', 'password')}),
+        (None, {'fields': ('username', 'password1', 'password2', 'type')}),
         (_('Personal info'), {
-            'fields': ('first_name', 'last_name', 'type'),
+            'fields': ('first_name', 'last_name'),
+        }),
+        (_('Permissions'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+    )
+
+    fksChange = (
+        (None, {'fields': ('username', 'password', 'type')}),
+        (_('Personal info'), {
+            'fields': ('first_name', 'last_name'),
         }),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
@@ -41,7 +51,7 @@ class UserAdmin(djUserAdmin):
     )
 
     add_fieldsets = fks
-    fieldsets = fks
+    fieldsets = fksChange
 
     list_display = ["username", "alias", "is_superuser"]
     search_fields = ["username", "alias"]
