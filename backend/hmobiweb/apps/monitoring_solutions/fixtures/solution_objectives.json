@@ -14,5 +14,13 @@
             "designation": "Sleep Monitoring",
             "slug": "224ea599-02a2-49a1-be2f-c1fcb04d003e"
         }
+    },
+    {
+        "model": "monitoring_solutions.SolutionObjective",
+        "pk": 3,
+        "fields": {
+            "designation": "Home Location",
+            "slug": "224ea599-02a2-49a1-ba2f-c1fc304d003e"
+        }
     }
 ]

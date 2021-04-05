@@ -1,0 +1,26 @@
+[
+    {
+        "model": "monitoring_solutions.solution",
+        "pk": 1,
+        "fields": {
+            "slug": "6ee0e7ec-0b08-403c-af9c-a9b13e600547",
+            "category": 1,
+            "objective": 3,
+            "name": "Home Pattern Detector",
+            "description": "Logs the places a user visits inside its home",
+            "sampleJsonSchema": {
+                "title": "Home Pattern Detector",
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "placeId": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "placeId"
+                ]
+            }
+        }
+    }
+]
