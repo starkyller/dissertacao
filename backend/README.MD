@@ -68,10 +68,67 @@ This is an example of how to list things you need to use the software.
 7. Navigate to /admin on a browser and have fun
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Production instalation
 
-To be written
+### Installation
 
-<!--_For more examples, please refer to the [Documentation]()_ -->
+1. Update system and install general dependencies
+   ```sh
+   sudo apt update && sudo apt upgrade && sudo apt install libpq-dev pip3-pip
+   sudo -H pip3 install pipenv
+   ```
 
+2. Clone the repo
+   ```sh
+   git clone https://github.com/starkyller/dissertacao.git
+   ```
+3. Change Directory to backend and create
+   ```sh
+   cd backend && mkdir.venv
+   ```
+4. Install dependencies
+   ```sh
+   pipenv install
+   pipenv install psycopg2
+   pipenv install gunicorn
+   ```
+5. Change settings file on src/manage.py
 
+   os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.dev") -> os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.prod")
+6. Change settings file on src/core/wsgi.py
+   
+   os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.dev") -> os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
+7. Change settings file on src/core/wsgi.py
+   
+   os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.dev") -> os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
+8. On core/settings/production.py
+
+   Input your desired postgresql credentials and change the ALLOWED_HOSTS 
+
+   ps: dont forget to create the database before running the migrations.
+9. Run the migrations, collect static files, create super user
+   ```sh
+   ./manage.py migrate
+   ./manage.py collectstatic
+   ./manage.py createsuperuser
+   ```
+10. Change the ownership of the project
+   ```sh
+   sudo chown -R :www-data backend
+   ```
+11. Exit of the virtualenv
+   ```sh
+   exit
+   ```
+12. Add the config files
+
+   In the production_config_files you have the files and the path they should be in, it is just a matter of copying them, just ignore the load_testing folder.
+
+13. Start the webservice
+   ```sh
+   sudo ln -s /etc/nginx/sites-available/hmobiweb /etc/nginx/sites-enabled
+   sudo nginx -s reload
+   sudo systemctl start hmobiweb
+   sudo systemctl enable hmobiweb
+   ```
+   
