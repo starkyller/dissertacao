@@ -1,0 +1,32 @@
+server {
+    listen 80;
+    server_name 127.0.0.1;   
+    
+    root /home/[your_username_here]/backend/hmobiweb;
+
+    location = /favicon.ico {
+        root core/static/favicon/favicon.ico;
+    }
+
+    location /media/ {
+        # 
+    }
+
+    location /static/ {
+        #
+    }
+
+    location / {
+
+        proxy_set_header  X-Forwarded-For $remote_addr;
+        proxy_set_header  X-Forwarded-Host $remote_addr;
+        proxy_headers_hash_max_size 512;
+        proxy_headers_hash_bucket_size 128;
+      
+
+        # nginx to gunicorn
+        include proxy_params;
+        proxy_pass 'http://localhost:8000';
+    }
+
+}

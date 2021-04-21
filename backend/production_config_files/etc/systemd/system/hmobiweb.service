@@ -1,0 +1,20 @@
+[Unit]
+Description=Service for Health Moni Backend
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/var/run/gunicorn_tese.pid
+User=[you_username_here]
+Group=www-data
+
+# Absolute path to workdir until the project src/ folder
+WorkingDirectory=/home/[you_username_here]/backend/hmobiweb
+
+ExecStart=/home/[you_username_here]/backend/.venv/bin/gunicorn  --config /etc/hmobiweb/gunicorn.conf.py  core.wsgi
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

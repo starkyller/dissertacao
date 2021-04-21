@@ -1,0 +1,10 @@
+workers = 7
+threads = 3 
+syslog = True
+bind = "127.0.0.1:8000"
+loglevel = "info"
+user = "your_username_here"
+group = "www-data"
+accesslog = "/var/log/gunicorn/access.log"
+errorlog = "/var/log/gunicorn/error.log"
+capture_output = True
