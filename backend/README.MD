@@ -130,9 +130,7 @@ This is an example of how to list things you need to use the software.
    sudo mkdir /var/log/gunicorn 
    sudo chown -R :www-data /var/log/gunicorn/
    sudo chmod g+w -R  /var/log/gunicorn/
-
    ```
-   /var/log/gunicorn
 
 14. Start the webservice
    ```sh
