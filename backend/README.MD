@@ -74,7 +74,7 @@ This is an example of how to list things you need to use the software.
 
 1. Update system and install general dependencies
    ```sh
-   sudo apt update && sudo apt upgrade && sudo apt install libpq-dev pip3-pip
+   sudo apt update && sudo apt upgrade && sudo apt install nginx libpq-dev pip3-pip
    sudo -H pip3 install pipenv
    ```
 
@@ -124,7 +124,17 @@ This is an example of how to list things you need to use the software.
 
    In the production_config_files you have the files and the path they should be in, it is just a matter of copying them, just ignore the load_testing folder.
 
-13. Start the webservice
+13. Make the gunicorn log folder with the needed permissions
+
+   ```sh
+   sudo mkdir /var/log/gunicorn 
+   sudo chown -R :www-data /var/log/gunicorn/
+   sudo chmod g+w -R  /var/log/gunicorn/
+
+   ```
+   /var/log/gunicorn
+
+14. Start the webservice
    ```sh
    sudo ln -s /etc/nginx/sites-available/hmobiweb /etc/nginx/sites-enabled
    sudo nginx -s reload
